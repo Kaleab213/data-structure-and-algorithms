@@ -1,0 +1,78 @@
+
+comparison=0
+assignment=0
+import time
+
+import random
+
+def create_list( ):
+    randomlist = []    
+    for i in range(0,10000):
+        n = random.randint(1,1000000000)
+        randomlist.append(n)
+    return randomlist
+
+def merge_sort(list):
+    global assignment
+    global comparison 
+    start = time.time()
+    if len(list) > 1:
+        assignment+=3
+        middle = len(list) // 2
+        halflist1 = list[:middle]
+        halflist2 = list[middle:]
+ 
+        merge_sort(halflist1)
+        merge_sort(halflist2)
+        assignment+=1
+        x,y,z = (0,0,0)
+        comparison+=2
+        while (x < len(halflist1)) and (y < len(halflist2)):
+            if halflist1[x] < halflist2[y]:
+                comparison+=1
+                assignment+=2
+                list[z] = halflist1[x]
+                x += 1
+            else:
+                assignment+=2
+                list[z] = halflist2[y]
+                y += 1
+            assignment+=1
+            z += 1
+        comparison+=1
+        while x < len(halflist1):
+            assignment+=3
+            list[z] = halflist1[x]
+            x += 1
+            z += 1
+        comparison+=1
+        while y < len(halflist2):
+            assignment+=3
+            list[z]=halflist2[y]
+            y += 1
+            z += 1
+    assignment+=2       
+    stop = time.time()
+    num = stop - start
+    return num
+
+#print("The unsorted list:\n", list)
+#merge_sort(list)
+#print("The Sorted one:\n", list)
+lst = create_list()
+lst=list(reversed(sorted(lst)))
+print("For reverse sorted list it took %10f seconds"% merge_sort(lst))
+print ("number of comparisons=",comparison)
+print("number of assignment=",assignment)
+
+
+lst = create_list()
+lst=sorted(lst)
+print("For sorted list it took %10f seconds"% merge_sort(lst))
+print ("number of comparisons=",comparison)
+print("number of assignment=",assignment)
+
+lst = create_list()
+print("For random list it took %10f seconds"% merge_sort(lst))
+print ("number of comparisons=",comparison)
+print("number of assignment=",assignment)
