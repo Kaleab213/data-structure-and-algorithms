@@ -1,0 +1,133 @@
+import time
+
+import random
+randomlist = []
+for i in range(0,7000):
+    n = random.randint(1,1000000000)
+    randomlist.append(n)
+list = randomlist
+
+def partition(list, left_index, right_index):
+    start = time.time()
+    pivot = list[left_index]
+    i = left_index + 1
+    
+    for j in range(left_index + 1, right_index):
+        if list[j] < pivot:
+            list[j], list[i] = list[i], list[j]
+            i += 1
+    list[left_index], list[i - 1] = list[i - 1], list[left_index]
+    return i - 1
+    end  = time.time()
+    time_taken = end-start
+    return time_taken
+
+def quick_sort_random(list, left, right):
+    start = time.time()
+    if left < right:
+        pivot = random.randint(left, right - 1)
+        list[pivot], list[left] = (list[left],list[pivot])
+        pivot_index = partition(list, left, right)
+        quick_sort_random(list, left, pivot_index)
+        quick_sort_random(list, pivot_index + 1, right)
+    end  = time.time()
+    time_taken = end-start
+    return time_taken
+
+    
+quick_sort_random(list, 0, len(list))
+
+print("It took %10f seconds"% (partition(list, 0, len(list))+ quick_sort_random(list, 0, len(list))))
+
+############################################## Ascending
+list1 = sorted(list)
+def partition(list1, left_index, right_index):
+    start = time.time()
+    pivot = list1[left_index]
+    i = left_index + 1
+
+    for j in range(left_index + 1, right_index):
+        if list1[j] < pivot:
+            list1[j], list1[i] = list1[i], list1[j]
+            i += 1
+    list1[left_index], list1[i - 1] = list1[i - 1], list1[left_index]
+    return i - 1
+    end = time.time()
+    time_taken = end - start
+    return time_taken
+
+
+def quick_sort_Ascending(list1, left, right):
+    start = time.time()
+    if left < right:
+        pivot = random.randint(left, right - 1)
+        list1[pivot], list1[left] = (list1[left], list1[pivot])
+        pivot_index = partition(list1, left, right)
+        quick_sort_Ascending(list1, left, pivot_index)
+        quick_sort_Ascending(list1, pivot_index + 1, right)
+    end = time.time()
+    time_taken = end - start
+    return time_taken
+
+
+quick_sort_Ascending(list1, 0, len(list1))
+
+print("It took %10f seconds" % (partition(list1, 0, len(list1)) + quick_sort_Ascending(list1, 0, len(list1))))
+
+##################################################  Descending
+list2 = sorted(list)
+list2.reverse()
+
+def partition(list2, left_index, right_index):
+    start = time.time()
+    pivot = list2[left_index]
+    i = left_index + 1
+
+    for j in range(left_index + 1, right_index):
+        if list2[j] < pivot:
+            list2[j], list2[i] = list2[i], list2[j]
+            i += 1
+    list2[left_index], list2[i - 1] = list2[i - 1], list2[left_index]
+    return i - 1
+    end = time.time()
+    time_taken = end - start
+    return time_taken
+
+
+def quick_sort_Descending(list2, left, right):
+    start = time.time()
+    if left < right:
+        pivot = random.randint(left, right - 1)
+        list2[pivot], list2[left] = (list2[left], list2[pivot])
+        pivot_index = partition(list2, left, right)
+        quick_sort_Descending(list2, left, pivot_index)
+        quick_sort_Descending(list2, pivot_index + 1, right)
+    end = time.time()
+    time_taken = end - start
+    return time_taken
+
+
+quick_sort_Descending(list2, 0, len(list2))
+
+print("It took %10f seconds" % (partition(list2, 0, len(list2)) + quick_sort_Descending(list2, 0, len(list2))))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
