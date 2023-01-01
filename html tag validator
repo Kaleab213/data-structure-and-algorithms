@@ -1,0 +1,139 @@
+class Array:
+    def __init__(self, size, data_type):
+        self.size = size
+        self.data_type = data_type
+        self.count = 0
+        self.Array = [None] * size
+
+    def isEmpty(self):
+        if self.count==0:
+            return True
+        return False
+
+    def isFull(self):
+        return self.count == self.size
+
+    def move_to_right(self, indexs):
+        for index in range(self.count, indexs, -1):
+            self.Array[index] = self.Array[index - 1]
+
+    def move_to_left(self, indexs):
+        for index in range(indexs, self.count):
+            self.Array[index + 1], self.Array[index] = self.Array[index], self.Array[index + 1]
+
+    def insert_at_index(self, value, index):
+        if self.isFull():
+            raise Exception("Array is full")
+        elif not isinstance(value, self.data_type):
+            raise Exception("incompatible data type")
+        else:
+            self.move_to_right(index)
+            self.Array[index] = value
+            self.count += 1
+
+    def remove_from_index(self, index):
+        if self.isEmpty():
+            raise Exception("Array is empty")
+        else:
+            self.Array[index] = None
+            self.count -= 1
+            self.move_to_left(index)
+
+    def add_last(self, value):
+        if self.isFull():
+            raise Exception("Array is full")
+        elif not isinstance(value, self.data_type):
+            raise Exception("incompatible data type")
+        else:
+            self.Array[self.count] = value
+            self.count += 1
+
+    def remove_last(self):
+        if self.isEmpty():
+            raise Exception("Array is empty")
+        else:
+
+            self.Array[self.count - 1] = None
+            self.count -= 1
+
+
+
+    def print(self):
+        print(self.Array)
+
+    def get(self, index):
+        return self.Array[index]
+
+
+class Stack:
+
+    def __init__(self, size, data_type):
+        self.stack = Array(size, data_type)
+        self.size = size
+        self.data_type = data_type
+
+    def length(self):
+        return self.stack.count
+
+    def isEmpty(self):
+        return self.stack.isEmpty()
+
+    def isFull(self):
+        return self.stack.isFull()
+
+    def push(self, value):
+        self.stack.add_last(value)
+
+    def pop(self):
+        poped_value = self.stack.Array[self.stack.count - 1]
+        self.stack.remove_last()
+        return poped_value
+
+    def peek(self):
+        return self.stack.get(self.stack.count - 1)
+
+    def display(self):
+        return self.stack.print()
+
+
+class Html_Tag_validator:
+
+    def check_validity(self, HTML_File):
+
+        line_num = 0
+
+        with open(HTML_File, 'r') as file:
+            lines = file.readlines()
+
+        start_tag = Stack()
+        open_tag_val = ''
+        close_tag_val = ''
+
+        for line in lines:
+            line_num += 1
+            html_line = line.strip()
+            for html_line_word in range(len(html_line)):
+                if (html_line[html_line_word] == '<'):
+                    if (html_line[html_line_word + 1] != '/'):
+                        for tag in range(html_line_word + 1, len(html_line)):
+                            if (html_line[tag] == '>' or html_line[tag] == ' '):
+                                start_tag.push(open_tag_val)
+                                open_tag_val = ''
+                                break
+
+                            open_tag_val += html_line[tag]
+
+                    if (html_line[html_line_word + 1] == '/'):
+                        for tag in range(html_line_word + 2, len(html_line)):
+                            if (html_line[tag] == '>'):
+                                if (start_tag.peek() == close_tag_val):
+                                    start_tag.pop()
+                                else:
+                                    print(f"Error occured at the line {line_num - 1}")
+                                    return
+                                close_tag_val = ''
+                                break
+                            close_tag_val += html_line[tag]
+        if (start_tag.isEmpty()):
+            print("Correct syntax")
+
