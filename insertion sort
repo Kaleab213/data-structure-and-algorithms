@@ -1,0 +1,98 @@
+
+import random
+def rondom_list():
+
+    list1=[]
+    for i in range(0,10):
+        n=random.randint(1,10000)
+        list1.append(n)
+    return list1
+
+list2=rondom_list()
+
+def randomly_sorted_list():
+    nummber_of_comparistion1=0
+    nummber_of_Assinment1=0
+    for i in range(1,len(list2)):
+        nummber_of_comparistion1+=2
+        nummber_of_Assinment1+=1
+        value=list2[i]
+        nummber_of_Assinment1 += 1
+        j=i-1
+        nummber_of_Assinment1 += 1
+        while j>=0 and value<list2[j]:
+            nummber_of_comparistion1 += 2
+            list2[j+1]=list2[j]
+            nummber_of_Assinment1+=1
+
+            j-=1
+            nummber_of_Assinment1+=1
+            list2[j+1]=value
+            nummber_of_Assinment1+=1
+    print("Number of comparistion: ",nummber_of_comparistion1)
+    print("Number of Assinment: ",nummber_of_Assinment1)
+    return list2
+
+
+randomly_sorted_list()
+####################################
+### For Acending list
+list3=randomly_sorted_list()
+
+def Acending_sorted_list():
+    nummber_of_comparistion2=0
+    nummber_of_Assinment2=0
+    for i in range(1,len(list3)):
+        nummber_of_comparistion2+=2
+        nummber_of_Assinment2+=1
+        value=list3[i]
+        nummber_of_Assinment2 += 1
+        j=i-1
+        nummber_of_Assinment2 += 1
+        while j>=0 and value<list3[j]:
+            nummber_of_comparistion2 += 2
+            list3[j+1]=list3[j]
+            nummber_of_Assinment2+=1
+
+            j-=1
+            nummber_of_Assinment2+=1
+            list3[j+1]=value
+            nummber_of_Assinment2+=1
+    print("Number of comparistion: ",nummber_of_comparistion2)
+    print("Number of Assinment: ",nummber_of_Assinment2)
+
+    return list3
+
+Acending_sorted_list()
+
+
+##############################################
+##### Desending list
+
+list4=randomly_sorted_list()
+list4.reverse()
+def Desending_sorted_list():
+    nummber_of_comparistion3 = 0
+    nummber_of_Assinment3 = 0
+    for i in range(1, len(list4)):
+        nummber_of_comparistion3 += 2
+        nummber_of_Assinment3 += 1
+        value = list4[i]
+        nummber_of_Assinment3 += 1
+        j = i - 1
+        nummber_of_Assinment3 += 1
+        while j >= 0 and value < list4[j]:
+            nummber_of_comparistion3 += 2
+            list4[j + 1] = list4[j]
+            nummber_of_Assinment3 += 1
+
+            j -= 1
+            nummber_of_Assinment3 += 1
+            list4[j + 1] = value
+            nummber_of_Assinment3 += 1
+    print("Number of comparistion: ",nummber_of_comparistion3)
+    print("Number of Assinment: ",nummber_of_Assinment3)
+
+    return list4
+
+Desending_sorted_list()
